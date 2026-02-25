@@ -1,3 +1,5 @@
+package contributors
+
 import cats.effect.*
 
 import fs2.concurrent.*
@@ -6,7 +8,7 @@ import fs2.dom.HtmlElement
 import calico.html.io.{*, given}
 import calico.syntax.*
 
-object AndrewValencik:
+object DanielSpiewak:
   val favoriteLanguage = "Scala"
 
   val component: Resource[IO, HtmlElement[IO]] =
@@ -17,7 +19,7 @@ object AndrewValencik:
           revealed.map(r => if r then favoriteLanguage else "inherit").changes.map { color =>
             span(
               styleAttr := s"color: $color; font-weight: bold",
-              "@valencik"
+              "@djspiewak"
             )
           },
           " on GitHub. I agree to follow the Typelevel CoC and GSoC AI policy."

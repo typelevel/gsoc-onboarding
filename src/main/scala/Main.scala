@@ -1,6 +1,8 @@
 import cats.implicits.*
 import cats.effect.*
 
+import contributors.*
+
 import calico.IOWebApp
 import calico.html.io.{*, given}
 import calico.syntax.*
@@ -11,7 +13,7 @@ import fs2.dom.HtmlElement
 
 import org.http4s.dom.FetchClientBuilder
 
-val contributors: List[(String, Resource[IO, HtmlElement[IO]])] = List(
+val participants: List[(String, Resource[IO, HtmlElement[IO]])] = List(
   "antoniojimenez" -> AntonioJimenez.component,
   "armanbilge" -> ArmanBilge.component,
   "djspiewak" -> DanielSpiewak.component,
@@ -20,7 +22,7 @@ val contributors: List[(String, Resource[IO, HtmlElement[IO]])] = List(
 
 object Main extends IOWebApp:
   def render: Resource[IO, HtmlElement[IO]] =
-    val handles = contributors.map(_._1)
+    val handles = participants.map(_._1)
     val client = FetchClientBuilder[IO].create
 
     SignallingRef[IO].of[Option[String]](None).toResource.flatMap { validationMsg =>
@@ -44,7 +46,7 @@ object Main extends IOWebApp:
             onClick --> (_.foreach(_ => validate)),
             "Verify order"
           ),
-          ul(contributors.map { (handle, _) => li(a(href := s"#$handle", s"@$handle")) }),
-          contributors.map { (handle, component) => div(idAttr := handle, component) }
+          ul(participants.map { (handle, _) => li(a(href := s"#$handle", s"@$handle")) }),
+          participants.map { (handle, component) => div(idAttr := handle, component) }
         )
     }
