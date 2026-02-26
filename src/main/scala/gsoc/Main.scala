@@ -23,7 +23,7 @@ object Main extends IOWebApp:
     val client = FetchClientBuilder[IO].create
 
     Router(window).toResource.flatMap { router =>
-      SignallingRef[IO].of[Option[String]](None).toResource.flatMap { validationMsg =>
+      SignallingRef[IO].of[Option[Either[String, ValidationResponse]]](None).toResource.flatMap { validated =>
 
         def contributorUri(handle: String) = uri"" +? ("handle" -> handle)
 
@@ -45,22 +45,22 @@ object Main extends IOWebApp:
         }
 
         val validate: IO[Unit] =
-          Validation.validate(handles.toList, client).flatMap(validationMsg.set)
+          Validation.validate(handles.toList, client).map(Some(_)).flatMap(validated.set)
 
         div(
           h1("Typelevel GSoC Onboarding"),
           div(
-            styleAttr <-- validationMsg.map {
-              case None =>
-                "color: green; padding: 8px; border: 1px solid green; margin-bottom: 12px"
-              case Some(_) =>
-                "color: red; padding: 8px; border: 1px solid red; margin-bottom: 12px"
-            },
-            validationMsg.map(_.getOrElse("Order is correct!"))
+            cls <-- validated.map {
+              case None => "empty"
+              case Some(Left(_)) => "error"
+              case Some(Right(ValidationResponse(true, _))) => "valid"
+              case Some(Right(ValidationResponse(false, _))) => "invalid"
+            }.map(_ :: "validation-result" :: Nil),
+            validated.map(_.foldMap(_.fold(identity(_), _.toString)))
           ),
           button(
             onClick --> (_.foreach(_ => validate)),
-            "Verify order"
+            "Check order"
           ),
           nav,
           routes.toResource.flatMap(router.dispatch)
