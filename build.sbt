@@ -24,3 +24,17 @@ lazy val root = project
       "org.http4s" %%% "http4s-dom" % http4sDomVersion
     )
   )
+
+val serve = taskKey[Unit]("Starts a local HTTP file server")
+serve := {
+  import java.net.InetSocketAddress
+  import com.sun.net.httpserver.SimpleFileServer
+  val addr = new InetSocketAddress(0)
+  val server = SimpleFileServer.createFileServer(
+    addr,
+    file(".").toPath.toAbsolutePath,
+    SimpleFileServer.OutputLevel.None
+  )
+  server.start()
+  streams.value.log.info(s"Server started at http://${server.getAddress}")
+}
