@@ -1,3 +1,5 @@
+package gsoc
+
 import cats.effect.*
 
 import fs2.concurrent.*

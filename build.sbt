@@ -17,6 +17,7 @@ lazy val root = project
     libraryDependencies ++= List(
       "org.scala-js" %%% "scalajs-dom" % scalajsDomVersion,
       "com.armanbilge" %%% "calico" % calicoVersion,
+      "com.armanbilge" %%% "calico-router" % calicoVersion,
       "org.http4s" %%% "http4s-circe" % http4sVersion,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-parser" % circeVersion,

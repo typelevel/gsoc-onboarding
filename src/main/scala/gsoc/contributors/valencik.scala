@@ -1,3 +1,4 @@
+package gsoc
 package contributors
 
 import cats.effect.*
@@ -8,15 +9,12 @@ import fs2.dom.HtmlElement
 import calico.html.io.{*, given}
 import calico.syntax.*
 
-object AndrewValencik:
-  val favoriteLanguage = "Scala"
-
-  val component: Resource[IO, HtmlElement[IO]] =
+val valencik = Contributor("valencik"):
     SignallingRef[IO].of(false).toResource.flatMap { revealed =>
       div(
         p(
           "I am ",
-          revealed.map(r => if r then favoriteLanguage else "inherit").changes.map { color =>
+          revealed.map(r => if r then "orange" else "inherit").changes.map { color =>
             span(
               styleAttr := s"color: $color; font-weight: bold",
               "@valencik"
@@ -25,7 +23,7 @@ object AndrewValencik:
           " on GitHub. I agree to follow the Typelevel CoC and GSoC AI policy."
         ),
         revealed.map(r =>
-          if r then p(s"My favorite programming language is $favoriteLanguage!") else div(s"")),
+          if r then p(s"My favorite programming language is Scala!") else div(s"")),
         button(
           onClick --> (_.foreach(_ => revealed.update(!_))),
           revealed.map(r =>
