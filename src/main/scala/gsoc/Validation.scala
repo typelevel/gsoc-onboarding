@@ -26,7 +26,9 @@ object Validation:
   def request(handles: List[String]): Request[IO] =
     Request[IO](Method.POST, apiUrl).withEntity(handles.asJson)
 
-  def validate(handles: List[String], client: Client[IO]): IO[Either[String, ValidationResponse]] =
+  def validate(
+      handles: List[String],
+      client: Client[IO]): IO[Either[String, ValidationResponse]] =
     client
       .expect[ValidationResponse](request(handles))
       .map(Right(_))

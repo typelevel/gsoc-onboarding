@@ -23,47 +23,52 @@ object Main extends IOWebApp:
     val client = FetchClientBuilder[IO].create
 
     Router(window).toResource.flatMap { router =>
-      SignallingRef[IO].of[Option[Either[String, ValidationResponse]]](None).toResource.flatMap { validated =>
+      SignallingRef[IO]
+        .of[Option[Either[String, ValidationResponse]]](None)
+        .toResource
+        .flatMap { validated =>
 
-        def contributorUri(handle: String) = uri"" +? ("handle" -> handle)
+          def contributorUri(handle: String) = uri"" +? ("handle" -> handle)
 
-        def nav = ul(handles.toList.map { handle =>
-          li(
-            a(
-              href := "#",
-              onClick(router.navigate(contributorUri(handle))),
-              s"@$handle"
+          def nav = ul(handles.toList.map { handle =>
+            li(
+              a(
+                href := "#",
+                onClick(router.navigate(contributorUri(handle))),
+                s"@$handle"
+              )
             )
-          )
-        })
+          })
 
-        val routes = allContributors.reduceMap {
-          case Contributor(handle, component) =>
-            Routes.one[IO] {
-              case uri if uri.query.params.get("handle").contains(handle) => ()
-            } { _ => component }
-        }
+          val routes = allContributors.reduceMap {
+            case Contributor(handle, component) =>
+              Routes.one[IO] {
+                case uri if uri.query.params.get("handle").contains(handle) => ()
+              } { _ => component }
+          }
 
-        val validate: IO[Unit] =
-          Validation.validate(handles.toList, client).map(Some(_)).flatMap(validated.set)
+          val validate: IO[Unit] =
+            Validation.validate(handles.toList, client).map(Some(_)).flatMap(validated.set)
 
-        div(
-          h1("Typelevel GSoC Onboarding"),
           div(
-            cls <-- validated.map {
-              case None => "empty"
-              case Some(Left(_)) => "error"
-              case Some(Right(ValidationResponse(true, _))) => "valid"
-              case Some(Right(ValidationResponse(false, _))) => "invalid"
-            }.map(_ :: "validation-result" :: Nil),
-            validated.map(_.foldMap(_.fold(identity(_), _.toString)))
-          ),
-          button(
-            onClick --> (_.foreach(_ => validate)),
-            "Check order"
-          ),
-          nav,
-          routes.toResource.flatMap(router.dispatch)
-        )
-      }
+            h1("Typelevel GSoC Onboarding"),
+            div(
+              cls <-- validated
+                .map {
+                  case None => "empty"
+                  case Some(Left(_)) => "error"
+                  case Some(Right(ValidationResponse(true, _))) => "valid"
+                  case Some(Right(ValidationResponse(false, _))) => "invalid"
+                }
+                .map(_ :: "validation-result" :: Nil),
+              validated.map(_.foldMap(_.fold(identity(_), _.toString)))
+            ),
+            button(
+              onClick --> (_.foreach(_ => validate)),
+              "Check order"
+            ),
+            nav,
+            routes.toResource.flatMap(router.dispatch)
+          )
+        }
     }
