@@ -6,23 +6,20 @@ import io.circe.*
 import io.circe.syntax.*
 
 import org.http4s.*
+import org.http4s.syntax.all.*
 import org.http4s.client.Client
-import org.http4s.circe.CirceEntityCodec.circeEntityDecoder
+import org.http4s.circe.CirceEntityCodec.*
 import org.http4s.dom.*
-
-import org.typelevel.ci.CIStringSyntax
 
 final case class OutOfOrder(shouldBeBefore: String, butIsAfter: String) derives Decoder
 final case class ValidationResponse(valid: Boolean, outOfOrder: Option[OutOfOrder])
     derives Decoder
 
 object Validation:
-  val workerUrl = "https://gsoc-onboarding-backend.antonio-jimenez-nieto.workers.dev/"
+  val apiUrl = uri"https://gsoc.typelevel.org/onboard"
 
   def request(handles: List[String]): Request[IO] =
-    Request[IO](Method.POST, Uri.unsafeFromString(workerUrl))
-      .withEntity(handles.asJson.noSpaces)
-      .putHeaders(Header.Raw(ci"Content-Type", "application/json"))
+    Request[IO](Method.POST, apiUrl).withEntity(handles.asJson)
 
   def validate(handles: List[String], client: Client[IO]): IO[Option[String]] =
     client
