@@ -19,5 +19,5 @@ val allContributors = NonEmptyList.of(
   `thonkpad`,
   `octocat`,
   djspiewak,
-  zayd_r
+  `zayd-r`
 )

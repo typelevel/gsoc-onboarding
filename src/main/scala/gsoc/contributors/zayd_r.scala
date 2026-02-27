@@ -7,7 +7,7 @@ import fs2.dom.HtmlElement
 import calico.html.io.{*, given}
 import calico.syntax.*
 
-val zayd_r: Contributor = Contributor("zayd_r"):
+val `zayd-r`: Contributor = Contributor("zayd-r"):
   val interserItems = List(
     "- A faster immutable list datatype",
     "- Native I/O backend for FS2 JVM",
