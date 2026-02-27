@@ -9,7 +9,7 @@ import calico.syntax.*
 
 val `zayd-r`: Contributor = Contributor("zayd-r"):
   val interserItems = List(
-    "- A faster immutable list datatype",
+    "- A faster immutable list datatype. ",
     "- Native I/O backend for FS2 JVM",
     "- Serverless integrations for Feral (but no experience in serverless)"
   )
