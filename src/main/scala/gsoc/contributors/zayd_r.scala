@@ -20,7 +20,7 @@ val zayd_r: Contributor = Contributor("zayd_r"):
       cls := "contributor-card",
       h3("Zayd-R"),
       p( "I agree to follow the Typelevel Code of Conduct and the GSoC AI policy."),
-      p("Interested in: Cats, FS2, and Typelevel ecosystem."),
+      p("Interested in: Functional programming, Cats, FS2, and Typelevel ecosystem."),
       h2("Ideas Iam Interested in:"),
       li(interserItems.map(li(_)))
     )
