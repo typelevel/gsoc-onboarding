@@ -46,14 +46,12 @@ val `alokkumardalei-wq`: Contributor = Contributor("alokkumardalei-wq"):
             " I love Typelevel ",
             span(cls := "heart", "❤️")
           )
-        else div("")
-      ),
+        else div("")),
       button(
         onClick --> (_.foreach(_ => revealed.update(!_))),
         revealed.map(r =>
           if r then "Hide"
-          else "Click me to share my love for Typelevel!"
-        )
+          else "Click me to share my love for Typelevel!")
       )
     )
   }
