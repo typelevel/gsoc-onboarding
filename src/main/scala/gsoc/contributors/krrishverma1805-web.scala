@@ -19,7 +19,8 @@ val `krrishverma1805-web`: Contributor = Contributor("krrishverma1805-web"):
         " on GitHub. I agree to follow the Typelevel Code of Conduct and the GSoC AI policy."
       ),
       p("I am contributing to cats-collections for GSoC 2026!"),
-      p(styleAttr := "font-weight: bold",
+      p(
+        styleAttr := "font-weight: bold",
         "Quiz: Which cats-collections data structure supports O(1) merge?"
       ),
       div(

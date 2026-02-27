@@ -21,4 +21,3 @@ val allContributors = NonEmptyList.of(
   djspiewak,
   `krrishverma1805-web`
 )
-
