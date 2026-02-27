@@ -66,15 +66,76 @@ val yourgithubhandle: Contributor = Contributor("yourgithubhandle"):
 
 ## Running locally
 
-Start an sbt shell, then run `serve` to start the local development server and `~fastLinkJS` to compile and watch for changes:
+1. Verify Java installation --> 
 
-```
-$ sbt
-sbt:gsoc-onboarding> serve
-sbt:gsoc-onboarding> ~fastLinkJS
-```
+Ensure Java 21 or newer is installed:
 
-Open the URL printed by the `serve` task in your browser to preview the webapp.
+~ Bash
+~ java -version
+
+If the command is not recognized, install Java and restart your terminal.
+
+2. Verify sbt installation -->
+
+Check that sbt is installed and available in your PATH:
+
+~Bash
+~sbt sbtVersion
+
+If sbt is not recognized:
+~ Ensure sbt is installed from https://www.scala-sbt.org/download
+~ Restart your terminal
+~ Confirm sbt's bin directory is added to your system PATH
+
+3. Start sbt -->
+
+From the project root directory:
+
+~ Bash
+~ sbt
+
+You should see:
+~ sbt:gsoc-onboarding>
+
+4. Start the development server -->
+
+Inside the sbt shell:
+~ serve
+
+This will print a local address such as:
+http://localhost:64156
+
+Open that URL in your browser to preview the web app.
+
+If the browser does not open automatically, copy the full URL manually.
+
+5. Enable continuous compilation -->
+
+To automatically rebuild when files change:
+~fastLinkJS
+
+You may run both serve and ~fastLinkJS in the same sbt shell or in separate terminals.
+
+Whenever you modify a Scala file, the project will automatically recompile.
+
+6. Formatting before opening a PR -->
+
+Before committing your changes, run:
+
+~ sbt scalafmtAll 
+~ sbt scalafmtSbt
+
+This ensures formatting checks pass in Cl.
+
+7. Common troubleshooting -->
+
+~ If you encounter sbt server lock errors, close all running sbt instances and restart your terminal.
+
+~ If compilation fails, confirm you are using Java 21+.
+
+~ If localhost does not open, manually copy the printed URL.
+
+~ If formatting fails in Cl, run the formatting commands above before pushing.
 
 ## Useful resources
 
@@ -89,3 +150,6 @@ Good luck, and have fun! If you have any questions, please use the [Discussions]
 [coc]: https://typelevel.org/code-of-conduct/
 [ai]: https://typelevel.org/gsoc/ai.html
 [invite]: https://discord.gg/382Z3w8QTj
+
+
+
