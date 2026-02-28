@@ -63,6 +63,25 @@ val yourgithubhandle: Contributor = Contributor("yourgithubhandle"):
     )
   }
 ```
+## Environment Verification
+
+Before running the project, make sure your environment is correctly set up.
+
+### Verfiy Java
+
+Ensure Java 21 or newerr is installed : `java -version`
+If the command is not recognized, install Java and restart your terminal.
+
+### Verify sbt
+
+Check that sbt is installed and available in your PATH: `sbt --version`
+
+If sbt is not recognised :
+
+- Make sure sbt is installed from https://www.scala-sbt.org/download
+- Restart your terminal
+- Ensure sbt’s bin directory is added to your system PATH
+
 
 ## Running locally
 
