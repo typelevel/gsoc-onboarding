@@ -14,12 +14,13 @@ val allContributors = NonEmptyList.of(
   `scala-steward`,
   `the-ivii`,
   valencik,
+  `zayd-r`,
   armanbilge,
   guptapratykshh,
   `alokkumardalei-wq`,
   `thonkpad`,
+  jarmuszz,
   `octocat`,
   djspiewak,
-  `zayd-r`,
   `krrishverma1805-web`
 )
