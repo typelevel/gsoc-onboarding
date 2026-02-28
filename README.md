@@ -73,6 +73,10 @@ $ sbt
 sbt:gsoc-onboarding> serve
 sbt:gsoc-onboarding> ~fastLinkJS
 ```
+You can run both commands inside the same sbt shell.
+
+- `serve` starts the development server.
+- `~fastLinkJS` enables continuous compilation and automatically rebuilds on file changes.
 
 Open the URL printed by the `serve` task in your browser to preview the webapp.
 
