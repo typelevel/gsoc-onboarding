@@ -75,6 +75,7 @@ sbt:gsoc-onboarding> ~fastLinkJS
 ```
 
 Open the URL printed by the `serve` task in your browser to preview the webapp.
+If the browser does not open automatically, copy and paste the full URL manually.
 
 ## Useful resources
 
