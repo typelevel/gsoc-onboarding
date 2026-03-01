@@ -76,6 +76,10 @@ sbt:gsoc-onboarding> ~fastLinkJS
 
 Open the URL printed by the `serve` task in your browser to preview the webapp.
 
+### Troubleshooting
+
+If you encounter an sbt server lock error (for example, related to `.lock` files), ensure that no other sbt instances are running. Close all terminals using sbt and restart your terminal before trying again.
+
 ## Useful resources
 
 - [Typelevel Code of Conduct][coc]
