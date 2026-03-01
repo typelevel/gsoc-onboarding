@@ -76,6 +76,17 @@ sbt:gsoc-onboarding> ~fastLinkJS
 
 Open the URL printed by the `serve` task in your browser to preview the webapp.
 
+#Formatting
+
+Before committing your changes, run:
+
+```
+$ sbt scalafmtAll 
+$ sbt scalafmtSbt
+```
+
+This ensures formatting checks pass in CI.
+
 ## Useful resources
 
 - [Typelevel Code of Conduct][coc]
