@@ -36,8 +36,9 @@ val `piyush-t24`: Contributor =
       val shuffled = Random
         .shuffle(pairs.zipWithIndex)
         .zipWithIndex
-        .map { case ((emoji, _origIdx), id) =>
-          Card(id = id, emoji = emoji, isRevealed = false, isMatched = false)
+        .map {
+          case ((emoji, _origIdx), id) =>
+            Card(id = id, emoji = emoji, isRevealed = false, isMatched = false)
         }
         .toVector
 
@@ -188,14 +189,20 @@ val `piyush-t24`: Contributor =
                 div(
                   styleAttr :=
                     "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;",
-                  calico.html.io.span(
-                    styleAttr := "font-size: 0.9rem; color: #9ca3af;",
-                    statusText
-                  ),
-                  calico.html.io.span(
-                    styleAttr := "font-size: 0.9rem; color: #e5e7eb;",
-                    s"Moves: ${s.moves}"
-                  )
+                  calico
+                    .html
+                    .io
+                    .span(
+                      styleAttr := "font-size: 0.9rem; color: #9ca3af;",
+                      statusText
+                    ),
+                  calico
+                    .html
+                    .io
+                    .span(
+                      styleAttr := "font-size: 0.9rem; color: #e5e7eb;",
+                      s"Moves: ${s.moves}"
+                    )
                 ),
                 // reset button
                 div(
@@ -223,24 +230,25 @@ val `piyush-t24`: Contributor =
                     grid-template-columns: repeat(4, minmax(0, 1fr));
                     gap: 8px;
                     """,
-                  s.cards.zipWithIndex.toList.map { case (card, idx) =>
-                    val showEmoji = card.isRevealed || card.isMatched
-                    val bgColor =
-                      if card.isMatched then "#16a34a"
-                      else if card.isRevealed then "#0ea5e9"
-                      else "#111827"
-                    val borderColor =
-                      if s.firstSelected.contains(idx) then "#eab308"
-                      else "#1f2937"
+                  s.cards.zipWithIndex.toList.map {
+                    case (card, idx) =>
+                      val showEmoji = card.isRevealed || card.isMatched
+                      val bgColor =
+                        if card.isMatched then "#16a34a"
+                        else if card.isRevealed then "#0ea5e9"
+                        else "#111827"
+                      val borderColor =
+                        if s.firstSelected.contains(idx) then "#eab308"
+                        else "#1f2937"
 
-                    val disabledNow =
-                      card.isMatched || s.lockBoard || s.won
+                      val disabledNow =
+                        card.isMatched || s.lockBoard || s.won
 
-                    val label = if showEmoji then card.emoji else "❓"
+                      val label = if showEmoji then card.emoji else "❓"
 
-                    button(
-                      styleAttr :=
-                        s"""
+                      button(
+                        styleAttr :=
+                          s"""
                         height: 56px;
                         border-radius: 12px;
                         border: 1px solid $borderColor;
@@ -250,14 +258,20 @@ val `piyush-t24`: Contributor =
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        cursor: ${if disabledNow then "default" else "pointer"};
+                        cursor: ${
+                              if disabledNow then "default" else "pointer"
+                            };
                         transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
-                        box-shadow: ${if card.isRevealed || card.isMatched then "0 4px 10px rgba(0,0,0,0.4)" else "none"};
+                        box-shadow: ${
+                              if card.isRevealed || card.isMatched then
+                                "0 4px 10px rgba(0,0,0,0.4)"
+                              else "none"
+                            };
                         """,
-                      disabled := disabledNow,
-                      onClick --> (_.foreach(_ => handleCardClick(state, idx))),
-                      label
-                    )
+                        disabled := disabledNow,
+                        onClick --> (_.foreach(_ => handleCardClick(state, idx))),
+                        label
+                      )
                   }
                 )
               )
