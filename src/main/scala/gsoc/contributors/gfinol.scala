@@ -9,7 +9,6 @@ import fs2.dom.HtmlElement
 import calico.html.io.{*, given}
 import calico.syntax.*
 
-
 val gfinol = Contributor("gfinol"):
   SignallingRef[IO].of(false).toResource.flatMap { revealed =>
     div(
@@ -33,4 +32,3 @@ val gfinol = Contributor("gfinol"):
       )
     )
   }
-
