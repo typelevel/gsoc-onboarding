@@ -42,9 +42,9 @@ val malladinagarjuna2: Contributor = Contributor("malladinagarjuna2"):
     else
       val (hx, hy) = s.snake.head
       val newHead = s.dir match
-        case SnakeDir.Up    => (hx, hy - 1)
-        case SnakeDir.Down  => (hx, hy + 1)
-        case SnakeDir.Left  => (hx - 1, hy)
+        case SnakeDir.Up => (hx, hy - 1)
+        case SnakeDir.Down => (hx, hy + 1)
+        case SnakeDir.Left => (hx - 1, hy)
         case SnakeDir.Right => (hx + 1, hy)
       val (nx, ny) = newHead
       if nx < 0 || nx >= gridSize || ny < 0 || ny >= gridSize || s.snake.contains(newHead)
@@ -56,14 +56,15 @@ val malladinagarjuna2: Contributor = Contributor("malladinagarjuna2"):
   def changeDir(current: SnakeDir, key: String): SnakeDir =
     import SnakeDir.*
     key match
-      case "ArrowUp" if current != Down    => Up
-      case "ArrowDown" if current != Up    => Down
+      case "ArrowUp" if current != Down => Up
+      case "ArrowDown" if current != Up => Down
       case "ArrowLeft" if current != Right => Left
       case "ArrowRight" if current != Left => Right
-      case _                               => current
+      case _ => current
 
   SignallingRef[IO].of(initial).toResource.flatMap { state =>
-    val gameLoop = fs2.Stream
+    val gameLoop = fs2
+      .Stream
       .fixedRate[IO](200.millis)
       .evalMap(_ => state.update(move))
       .compile
@@ -76,27 +77,23 @@ val malladinagarjuna2: Contributor = Contributor("malladinagarjuna2"):
       onKeyDown --> (_.foreach { e =>
         e.key match
           case "ArrowUp" =>
-            e.preventDefault *> state.update(s =>
-              s.copy(started = true, dir = changeDir(s.dir, "ArrowUp"))
-            )
+            e.preventDefault *> state
+              .update(s => s.copy(started = true, dir = changeDir(s.dir, "ArrowUp")))
           case "ArrowDown" =>
-            e.preventDefault *> state.update(s =>
-              s.copy(started = true, dir = changeDir(s.dir, "ArrowDown"))
-            )
+            e.preventDefault *> state
+              .update(s => s.copy(started = true, dir = changeDir(s.dir, "ArrowDown")))
           case "ArrowLeft" =>
-            e.preventDefault *> state.update(s =>
-              s.copy(started = true, dir = changeDir(s.dir, "ArrowLeft"))
-            )
+            e.preventDefault *> state
+              .update(s => s.copy(started = true, dir = changeDir(s.dir, "ArrowLeft")))
           case "ArrowRight" =>
-            e.preventDefault *> state.update(s =>
-              s.copy(started = true, dir = changeDir(s.dir, "ArrowRight"))
-            )
+            e.preventDefault *> state
+              .update(s => s.copy(started = true, dir = changeDir(s.dir, "ArrowRight")))
           case _ => IO.unit
       }),
       p(
         "Hello, I'm @malladinagarjuna2 on GitHub. I agree to follow the Typelevel CoC and GSoC AI policy."
       ),
-      p(x
+      p(
         styleAttr := "font-size: 13px; color: #888; margin: 4px 0;",
         "Click here & use arrow keys to play Snake!"
       ),
@@ -106,14 +103,12 @@ val malladinagarjuna2: Contributor = Contributor("malladinagarjuna2"):
         state.map { s =>
           val grid = (0 until gridSize)
             .map { y =>
-              (0 until gridSize)
-                .map { x =>
-                  if s.snake.head == (x, y) then "\uD83D\uDFE2"
-                  else if s.snake.tail.contains((x, y)) then "\uD83D\uDFE9"
-                  else if s.food == (x, y) then "\uD83D\uDD34"
-                  else "\u2B1B"
-                }
-                .mkString
+              (0 until gridSize).map { x =>
+                if s.snake.head == (x, y) then "\uD83D\uDFE2"
+                else if s.snake.tail.contains((x, y)) then "\uD83D\uDFE9"
+                else if s.food == (x, y) then "\uD83D\uDD34"
+                else "\u2B1B"
+              }.mkString
             }
             .mkString("\n")
           s"Score: ${s.score}\n$grid" +
