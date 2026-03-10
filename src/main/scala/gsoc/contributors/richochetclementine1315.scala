@@ -59,7 +59,12 @@ val richochetclementine1315: Contributor = Contributor("richochetclementine1315"
         text-align: center;
       """,
       h3(styleAttr := "color:#cba6f7; margin: 0 0 4px;", "🎮 Evolution Clicker"),
-      p(styleAttr := "color:#6c7086; font-size:12px; margin:0 0 16px;", "Click to evolve your creature!  I agree to follow the Typelevel Code of Conduct and the GSoC AI policy"),
+      p(styleAttr := "color:#6c7086; font-size:12px; margin:0 0 16px;", "Click to evolve your creature!"),
+      p(
+        "I am ",
+        strong( styleAttr := "color:#cba6f7;", "@richochetclementine1315"),
+        " on GitHub. I agree to follow the Typelevel Code of Conduct and Typelevel GSoC AI Policy."
+      ),
 
       // Big clickable emoji
       div(
