@@ -15,28 +15,28 @@ val richochetclementine1315: Contributor = Contributor("richochetclementine1315"
   SignallingRef[IO].of(0).toResource.flatMap { count =>
 
     def evolve(n: Int): String = n match
-      case n if n < 10  => "🥚"
-      case n if n < 25  => "🐣"
-      case n if n < 50  => "🐥"
+      case n if n < 10 => "🥚"
+      case n if n < 25 => "🐣"
+      case n if n < 50 => "🐥"
       case n if n < 100 => "🐔"
       case n if n < 200 => "🦅"
-      case _            => "🐉"
+      case _ => "🐉"
 
     def levelName(n: Int): String = n match
-      case n if n < 10  => "Just an egg..."
-      case n if n < 25  => "Hatching!"
-      case n if n < 50  => "Baby chick!"
+      case n if n < 10 => "Just an egg..."
+      case n if n < 25 => "Hatching!"
+      case n if n < 50 => "Baby chick!"
       case n if n < 100 => "Full chicken!"
       case n if n < 200 => "Eagle mode!"
-      case _            => "DRAGON UNLOCKED 🔥"
+      case _ => "DRAGON UNLOCKED 🔥"
 
     def nextAt(n: Int): String = n match
-      case n if n < 10  => s"${10 - n} clicks to hatch"
-      case n if n < 25  => s"${25 - n} clicks to grow"
-      case n if n < 50  => s"${50 - n} clicks to mature"
+      case n if n < 10 => s"${10 - n} clicks to hatch"
+      case n if n < 25 => s"${25 - n} clicks to grow"
+      case n if n < 50 => s"${50 - n} clicks to mature"
       case n if n < 100 => s"${100 - n} clicks to evolve"
       case n if n < 200 => s"${200 - n} clicks to ascend"
-      case _            => "MAX LEVEL!"
+      case _ => "MAX LEVEL!"
 
     val autoClicker: Resource[IO, Unit] =
       Stream
@@ -59,10 +59,12 @@ val richochetclementine1315: Contributor = Contributor("richochetclementine1315"
         text-align: center;
       """,
       h3(styleAttr := "color:#cba6f7; margin: 0 0 4px;", "🎮 Evolution Clicker"),
-      p(styleAttr := "color:#6c7086; font-size:12px; margin:0 0 16px;", "Click to evolve your creature!"),
+      p(
+        styleAttr := "color:#6c7086; font-size:12px; margin:0 0 16px;",
+        "Click to evolve your creature!"),
       p(
         "I am ",
-        strong( styleAttr := "color:#cba6f7;", "@richochetclementine1315"),
+        strong(styleAttr := "color:#cba6f7;", "@richochetclementine1315"),
         " on GitHub. I agree to follow the Typelevel Code of Conduct and Typelevel GSoC AI Policy."
       ),
 
@@ -80,15 +82,21 @@ val richochetclementine1315: Contributor = Contributor("richochetclementine1315"
       ),
 
       // Level name
-      p(styleAttr := "font-size: 18px; font-weight: bold; margin: 4px 0;", count.map(levelName)),
+      p(
+        styleAttr := "font-size: 18px; font-weight: bold; margin: 4px 0;",
+        count.map(levelName)),
 
       // Click count
-      p(styleAttr := "font-size: 14px; color: #89b4fa; margin: 4px 0;", count.map(n => s"Clicks: $n")),
+      p(
+        styleAttr := "font-size: 14px; color: #89b4fa; margin: 4px 0;",
+        count.map(n => s"Clicks: $n")),
 
       // Progress hint
       p(styleAttr := "font-size: 12px; color:#6c7086; margin: 4px 0;", count.map(nextAt)),
 
       // Auto clicker note
-      p(styleAttr := "font-size: 11px; color:#45475a; margin-top: 16px;", "✨ Auto-clicking every 2s via fs2 Stream")
+      p(
+        styleAttr := "font-size: 11px; color:#45475a; margin-top: 16px;",
+        "✨ Auto-clicking every 2s via fs2 Stream")
     )
   }
