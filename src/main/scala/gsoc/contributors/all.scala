@@ -16,6 +16,7 @@ val allContributors = NonEmptyList.of(
   `typelevel-bot`,
   `im-vedant`,
   jmesyou,
+  `Arunanshu655`,
   abby_ql,
   justaanand50,
   codebydeepankar,
