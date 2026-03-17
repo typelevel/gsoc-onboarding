@@ -19,7 +19,7 @@ val etvinh: Contributor = Contributor("etvinh"):
       "   #######   ",
       "    #####    ",
       "     ###     ",
-      "      #      ",
+      "      #      "
     )
 
     val bigHeart = Vector(
@@ -31,16 +31,18 @@ val etvinh: Contributor = Contributor("etvinh"):
       "   #######   ",
       "    #####    ",
       "     ###     ",
-      "      #      ",
+      "      #      "
     )
-    
+
     // lub, deflate, dub, deflate, pause
     val frames = Vector(bigHeart, smallHeart, bigHeart, smallHeart, smallHeart)
     val delays = Vector(120, 120, 120, 120, 800)
 
-    val ticker = frame.get.flatMap { f =>
-      IO.sleep(delays(f).millis) >> frame.update(f => (f + 1) % frames.size)
-    }.foreverM.background
+    val ticker = frame
+      .get
+      .flatMap { f => IO.sleep(delays(f).millis) >> frame.update(f => (f + 1) % frames.size) }
+      .foreverM
+      .background
 
     ticker.flatMap { _ =>
       div(
