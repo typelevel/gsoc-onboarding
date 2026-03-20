@@ -1,5 +1,8 @@
 # Typelevel GSoC 2026 Onboarding
 
+> [!IMPORTANT]
+> Due to overwhelming participation in GSoC 2026, we are only able to consider proposals from applicants who complete our onboarding process by Monday, March 16th. If you missed this deadline, we appreciate your interest and hope you will apply next year!
+
 Welcome! This project is part of the onboarding process for [Google Summer of Code 2026](https://summerofcode.withgoogle.com/) applicants interested in contributing to [Typelevel](https://typelevel.org/gsoc/).
 
 The app is built with [Calico](https://www.armanbilge.com/calico/), a purely functional, reactive UI framework for Scala.js powered by [Cats Effect](https://typelevel.org/cats-effect/) and [FS2](https://fs2.io/).
